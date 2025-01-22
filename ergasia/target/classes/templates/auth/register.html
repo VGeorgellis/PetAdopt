@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script>
+        function updatePlaceholders() {
+            const roleSelect = document.getElementById("role");
+            const selectedRole = roleSelect.value;
+            const firstNameInput = document.getElementById("firstName");
+            const lastNameInput = document.getElementById("lastName");
+
+            if (selectedRole === "ROLE_SHELTER") {
+                firstNameInput.placeholder = "Supervisor First Name";
+                lastNameInput.placeholder = "Supervisor Last Name";
+            } else {
+                firstNameInput.placeholder = "Your First Name";
+                lastNameInput.placeholder = "Your Last Name";
+            }
+        }
+    </script>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <h3>User Registration</h3>
+    <form th:action="@{/saveUser}" method="post" th:object="${user}">
+
+        <div class="form-group row">
+            <label for="role">Role</label>
+            <select class="form-control" th:field="*{selectedRole}" id="role" onchange="updatePlaceholders()" required>
+                <option value="" disabled selected>Select your role</option>
+                <option th:each="role : ${roles}" th:value="${role.name}" th:text="${role.name}"></option>
+            </select>
+        </div>
+
+        <div class="form-group row">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" th:field="*{firstName}" id="firstName" placeholder="Your First Name" required/>
+        </div>
+
+        <div class="form-group row">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" th:field="*{lastName}" id="lastName" placeholder="Your Last Name" required/>
+        </div>
+
+        <div class="form-group row">
+            <label for="username">User Name</label>
+            <input type="text" class="form-control" th:field="*{username}" id="username" placeholder="Choose a Username"required/>
+        </div>
+
+        <div class="form-group row">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" th:field="*{description}" id="description" placeholder="Tell Us About You" required/>
+        </div>
+
+        <div class="form-group row">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Your eMail"required/>
+        </div>
+
+        <div class="form-group row">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Choose a password"required/>
+        </div>
+
+        <div><input type="submit" class="btn btn-primary" value="Sign Up"/></div>
+    </form>
+    <div th:text="${msg}"></div>
+</div>
+</body>
+</html>

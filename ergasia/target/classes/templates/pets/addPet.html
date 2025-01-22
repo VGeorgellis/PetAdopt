@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Pet</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+
+    <h3>Add Pet</h3>
+    <form th:action="@{/savePet}" method="post" th:object="${pet}">
+
+
+        <div class="form-group row">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Choose a Username"required/>
+        </div>
+
+        <div class="form-group row">
+            <label for="species">Species:</label>
+            <input type="text" id="species" th:field="*{species}" placeholder="Enter species" required />
+        </div>
+        <div class="form-group row">
+            <label for="sex">Sex:</label>
+            <input type="text" id="sex" th:field="*{sex}" />
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary" value="Save Pet" />
+        </div>
+
+    </form>
+    <div th:text="${msg}"></div>
+</div>
+</body>
+</html>

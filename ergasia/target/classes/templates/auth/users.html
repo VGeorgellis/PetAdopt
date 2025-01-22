@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+
+    <div th:if="${ not#lists.isEmpty(users)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}" >
+
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}" ></td>
+                <td th:text="${user.email}"></td>
+                <td th:if="${user.id}" ><a class="btn btn-info" th:href="@{/user/{id}(id=${user.id})}">Edit</a></td>
+
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${ #lists.isEmpty(users)}">
+        No Users found!
+    </div>
+    <a href="/register" class="btn btn-primary" role="button">Create new User</a>
+
+</div>
+</body>
+</html>
+
+
+

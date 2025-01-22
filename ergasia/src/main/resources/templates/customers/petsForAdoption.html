@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pets</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+</head>
+<body>
+<div layout:fragment="main-content">
+
+    <div th:if="${not #lists.isEmpty(pets)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Sex</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pet : ${pets}">
+                <td th:text="${pet.id}"></td>
+                <td th:text="${pet.name}"></td>
+                <td th:text="${pet.sex}"></td>
+                <td>
+                    <a class="btn btn-info" th:href="@{/pet/liked/{id} (id=${pet.id})}" th:if="${likedPets != null and !likedPets.contains(pet)}" th:text="Like"></a>
+                    <a class="btn btn-info" th:href="@{/pet/unliked/{id} (id=${pet.id})}" th:if="${likedPets != null and likedPets.contains(pet)}" th:text="Liked"></a>
+                    <button class="btn btn-primary open-datepicker" th:if="${! petsAppointments.contains(pet)}" th:data-pet-id="${pet.id}">Book Appointment</button>
+                    <span th:each="appointment : ${appointments}" >
+                        <a th:if="${appointment.pet == pet}" th:text="${appointment.appointmentDate}"></a>
+                       <form th:action="@{/cancel-appointment/{id} (id=${appointment.id})}" th:if="${appointment.pet == pet}" method="post">
+                        <button type="submit" class="btn btn-danger">Cancel Appointment</button>
+                        </form>
+
+                    </span>
+
+
+                </td>
+
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(pets)}">
+        No Pets found!
+    </div>
+
+
+    <div id="datepicker-dialog" title="Select Date">
+        <form id="appointment-form" th:action="@{/book-appointment}" method="post">
+            <p>Please select a date for your appointment:</p>
+            <input type="text" id="datepicker" name="date" readonly>
+            <input type="hidden" id="selected-pet-id" name="petId">
+        </form>
+    </div>
+
+    <script>
+        $(function() {
+            const bookedDates = /*[[${bookedDates}]]*/ [];
+            $("#datepicker-dialog").dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    "Book": function() {
+                        $("#appointment-form").submit();
+                    },
+                    Cancel: function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $("#datepicker").datepicker({
+                minDate: 0,
+                beforeShowDay: function(date) {
+                    const formattedDate = $.datepicker.formatDate('yy-mm-dd', date);
+
+                    return [!bookedDates.includes(formattedDate)];
+                }
+            });
+
+            $(".open-datepicker").click(function() {
+                var petId = $(this).data("pet-id");
+                $("#selected-pet-id").val(petId);
+                $("#datepicker-dialog").dialog("open");
+            });
+        });
+    </script>
+
+
+
+
+</div>
+</body>
+</html>
