@@ -12,7 +12,7 @@ public class ShelterProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -29,17 +29,17 @@ public class ShelterProfile {
     public ShelterProfile() {
     }
 
-    public ShelterProfile(int id, User user, Set<Pet> ourPets) {
+    public ShelterProfile(Long id, User user, Set<Pet> ourPets) {
         this.id = id;
         this.user = user;
         this.ourPets = ourPets;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

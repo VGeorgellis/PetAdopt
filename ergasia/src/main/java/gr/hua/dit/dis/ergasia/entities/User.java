@@ -16,7 +16,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Please enter your username")
     @Size(max = 20)
@@ -62,7 +62,7 @@ public class User {
 
 
 
-    public User(Integer id, String username, String firstName, String lastName, String description, String email, String password, Set<Role> roles, String selectedRole) {
+    public User(Long id, String username, String firstName, String lastName, String description, String email, String password, Set<Role> roles, String selectedRole) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
@@ -74,7 +74,7 @@ public class User {
         this.selectedRole = selectedRole;
     }
 
-    public User(Integer id, String selectedRole, Set<Role> roles, String password, String email, String description, String lastName, String firstName, String username) {
+    public User(Long id, String selectedRole, Set<Role> roles, String password, String email, String description, String lastName, String firstName, String username) {
         this.id = id;
         this.selectedRole = selectedRole;
         this.roles = roles;
@@ -87,11 +87,11 @@ public class User {
     }
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

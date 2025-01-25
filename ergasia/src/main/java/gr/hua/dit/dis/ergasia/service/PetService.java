@@ -34,7 +34,7 @@ public class PetService {
 
 
     @Transactional
-    public Integer savePet(Pet pet, User shelter, User vet) {
+    public Long savePet(Pet pet, User shelter, User vet) {
 
 
         VetProfile vetProfile = vetProfileRepository.findByVet(vet);

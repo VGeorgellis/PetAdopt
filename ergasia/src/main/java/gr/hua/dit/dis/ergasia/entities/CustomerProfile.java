@@ -12,7 +12,7 @@ public class CustomerProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -34,7 +34,7 @@ public class CustomerProfile {
 
 
 
-    public CustomerProfile(Integer id, User user, Set<Pet> liked_animals) {
+    public CustomerProfile(Long id, User user, Set<Pet> liked_animals) {
         this.id = id;
         this.user = user;
         this.liked_animals = liked_animals;
@@ -44,11 +44,11 @@ public class CustomerProfile {
     }
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

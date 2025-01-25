@@ -3,7 +3,6 @@ package gr.hua.dit.dis.ergasia.repositories;
 import gr.hua.dit.dis.ergasia.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
 
 @Repository

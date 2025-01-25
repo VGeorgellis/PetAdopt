@@ -11,7 +11,7 @@ public class VetProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -30,17 +30,17 @@ public class VetProfile {
     public VetProfile() {
     }
 
-    public VetProfile(Integer id, User user, Set<Pet> animalsForCheck) {
+    public VetProfile(Long id, User user, Set<Pet> animalsForCheck) {
         this.id = id;
         this.user = user;
         this.animalsForCheck = animalsForCheck;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
