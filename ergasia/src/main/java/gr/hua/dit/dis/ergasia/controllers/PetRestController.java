@@ -66,7 +66,6 @@ public class PetRestController {
 
         VetProfile vetProfile = vetProfileRepository.findByVet(vet);
         vetProfile.getAnimalsForCheck().remove(pet);
-        vetProfile.setAnimalsForCheckNo(vetProfile.getAnimalsForCheckNo() - 1);
         vetProfileRepository.save(vetProfile);
 
         pet.setGoodHealthForAdoption(true);
@@ -82,7 +81,6 @@ public class PetRestController {
 
         VetProfile vetProfile = vetProfileRepository.findByVet(vet);
         vetProfile.getAnimalsForCheck().remove(pet);
-        vetProfile.setAnimalsForCheckNo(vetProfile.getAnimalsForCheckNo() - 1);
         vetProfileRepository.save(vetProfile);
 
         pet.setGoodHealthForAdoption(false);
