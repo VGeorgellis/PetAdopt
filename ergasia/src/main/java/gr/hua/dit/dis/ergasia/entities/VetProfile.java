@@ -60,11 +60,4 @@ public class VetProfile {
         this.animalsForCheck = animalsForCheck;
     }
 
-    public Integer getAnimalsForCheckNo() {
-        return animalsForCheckNo;
-    }
-
-    public void setAnimalsForCheckNo(Integer animalsForCheckNo) {
-        this.animalsForCheckNo = animalsForCheckNo;
-    }
 }

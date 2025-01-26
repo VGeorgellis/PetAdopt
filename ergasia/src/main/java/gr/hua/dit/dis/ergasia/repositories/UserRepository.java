@@ -15,8 +15,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
 
-
-    // Query to find the vet with the fewest animals
     @Query("SELECT vet FROM User vet " +
             "JOIN VetProfile VP on vet = VP.user " +
             "where VP.animalsForCheckNo = (SELECT MIN(animalsForCheckNo) FROM VetProfile )" +
@@ -24,12 +22,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "limit 1")
     Optional<User> findVetWithTheLessAnimals();
 
-
     Optional<User> findByEmail(String email);
 
     Optional<User> findById(Long id);
 
-    // Query to find all users except admins
+    Boolean existsByUsername(String username);
+
+    Boolean existsByEmail(String email);
+
     @Query("SELECT u FROM User u JOIN u.roles r WHERE r.name <> 'ROLE_ADMIN'")
     List<User> findAllUsersExceptAdmins();
 

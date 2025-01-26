@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.awt.image.ShortLookupTable;
+import java.util.Optional;
 
 @Repository
 public interface ShelterProfileRepository extends JpaRepository<ShelterProfile,Long> {
@@ -17,4 +18,5 @@ public interface ShelterProfileRepository extends JpaRepository<ShelterProfile,L
     // Query to find a shelter profile by shelter
     @Query("SELECT s FROM ShelterProfile s WHERE s.user = :shelter")
     ShelterProfile findByShelter(@Param("shelter") User shelter);
+    Optional<ShelterProfile> findByShelterUsername(String username);
 }

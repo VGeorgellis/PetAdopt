@@ -3,7 +3,7 @@ package gr.hua.dit.dis.ergasia.controllers;
 import gr.hua.dit.dis.ergasia.entities.*;
 import gr.hua.dit.dis.ergasia.repositories.*;
 import gr.hua.dit.dis.ergasia.service.PetService;
-import gr.hua.dit.dis.ergasia.service.UserService;
+import gr.hua.dit.dis.ergasia.service.UserDetailsServiceImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +18,16 @@ public class PetRestController {
     private final PetRepository petRepository;
     private final VetProfileRepository vetProfileRepository;
     private final ShelterProfileRepository shelterProfileRepository;
-    private final UserService userService;
+    private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final PetService petService;
     private final UserRepository userRepository;
     private final CustomerProfileRepository customerProfileRepository;
     private final AppointmentRepository appointmentRepository;
 
-    public PetRestController(UserService userService, AppointmentRepository appointmentRepository, PetService petService,
+    public PetRestController(UserDetailsServiceImpl userDetailsServiceImpl, AppointmentRepository appointmentRepository, PetService petService,
                              CustomerProfileRepository customerProfileRepository, UserRepository userRepository,
                              PetRepository petRepository, VetProfileRepository vetProfileRepository, ShelterProfileRepository shelterProfileRepository) {
-        this.userService = userService;
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.petService = petService;
         this.userRepository = userRepository;
         this.petRepository = petRepository;
@@ -107,34 +107,6 @@ public class PetRestController {
         petRepository.save(pet);
 
         return "Pet marked as not ready for adoption";
-    }
-
-    @PostMapping("/like/{id}")
-    public String likePet(@PathVariable Long id) {
-        User customer = getAuthenticatedUser();
-        Pet pet = getPetById(id);
-
-        CustomerProfile customerProfile = customerProfileRepository.findByCustomer(customer);
-        customerProfile.getLiked_animals().add(pet);
-        pet.getLikedByCustomerProfiles().add(customerProfile);
-        petRepository.save(pet);
-        customerProfileRepository.save(customerProfile);
-
-        return "Pet liked successfully!";
-    }
-
-    @PostMapping("/unlike/{id}")
-    public String unlikePet(@PathVariable Long id) {
-        User customer = getAuthenticatedUser();
-        Pet pet = getPetById(id);
-
-        CustomerProfile customerProfile = customerProfileRepository.findByCustomer(customer);
-        customerProfile.getLiked_animals().remove(pet);
-        pet.getLikedByCustomerProfiles().remove(customerProfile);
-        petRepository.save(pet);
-        customerProfileRepository.save(customerProfile);
-
-        return "Pet unliked successfully!";
     }
 
     @PostMapping("/appointment")

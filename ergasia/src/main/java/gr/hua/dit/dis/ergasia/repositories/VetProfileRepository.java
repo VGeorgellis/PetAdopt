@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface VetProfileRepository extends JpaRepository<VetProfile,Long> {
 
-    // Query to find a vet profile by vet
     @Query("SELECT v FROM VetProfile v WHERE v.user = :vet")
     VetProfile findByVet(@Param("vet") User vet);
+    Optional<VetProfile> findByVetUsername(String username);
 }

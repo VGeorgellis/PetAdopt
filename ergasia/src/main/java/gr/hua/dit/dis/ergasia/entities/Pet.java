@@ -1,10 +1,8 @@
 package gr.hua.dit.dis.ergasia.entities;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,7 +47,6 @@ public class Pet {
     )
     private VetProfile vet = new VetProfile();
 
-
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(name = "liked_animals",
@@ -58,14 +55,8 @@ public class Pet {
     )
     private Set<CustomerProfile> likedByCustomerProfiles = new HashSet<>();
 
-
-
     @Column
     private Boolean readyForAdoption;
-
-
-
-
 
     public Boolean getReadyForAdoption() {
         return readyForAdoption;
@@ -142,12 +133,8 @@ public class Pet {
         this.goodHealthForAdoption = goodHealthForAdoption;
     }
 
-
     public Set<CustomerProfile> getLikedByCustomerProfiles() {
         return likedByCustomerProfiles;
     }
 
-    public void setLikedByCustomerProfiles(Set<CustomerProfile> customerProfiles) {
-        this.likedByCustomerProfiles = customerProfiles;
-    }
 }

@@ -49,6 +49,7 @@ public class SecurityConfig {
                         .authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/pets/ready/**").permitAll()
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/v2/api-docs/**",
@@ -56,7 +57,10 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers("/teachers/**").hasRole("USER")
+                        .requestMatchers("/api/pets/not-ready/**").hasRole("ADMIN")
+                        .requestMatchers("/api/pets/checked/not-healthy/**").hasRole("ADMIN")
+                        .requestMatchers("/api/pets/checked/healthy/**").hasRole("ADMIN")
+                        .requestMatchers("/api/pets/add/**").hasAnyRole("ADMIN","SHELTER")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

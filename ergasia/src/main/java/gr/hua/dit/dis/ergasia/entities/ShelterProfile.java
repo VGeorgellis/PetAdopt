@@ -1,8 +1,6 @@
 package gr.hua.dit.dis.ergasia.entities;
 
-
 import jakarta.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
 

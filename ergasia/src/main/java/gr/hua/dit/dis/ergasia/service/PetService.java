@@ -8,7 +8,6 @@ import gr.hua.dit.dis.ergasia.repositories.PetRepository;
 import gr.hua.dit.dis.ergasia.repositories.ShelterProfileRepository;
 import gr.hua.dit.dis.ergasia.repositories.UserRepository;
 import gr.hua.dit.dis.ergasia.repositories.VetProfileRepository;
-
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -31,19 +30,12 @@ public class PetService {
         this.shelterProfileRepository = shelterProfileRepository;
     }
 
-
-
     @Transactional
     public Long savePet(Pet pet, User shelter, User vet) {
 
-
         VetProfile vetProfile = vetProfileRepository.findByVet(vet);
 
-        vetProfile.setAnimalsForCheckNo(vetProfile.getAnimalsForCheckNo()+1);
-
-
         ShelterProfile shelterProfile = shelterProfileRepository.findByShelter(shelter);
-
 
         pet.setVet(vetProfile);
         pet.setShelter(shelterProfile);
@@ -59,14 +51,11 @@ public class PetService {
         return pet.getId();
     }
 
-
-    // Return the pets of the shelter
     @Transactional
     public Object getOurPets(User shelter) {
         return petRepository.findOurPets(shelter.getUsername());
     }
 
-    // Return the animals that need to be checked by the vet
     @Transactional
     public Object getAnimalsForCheck(User vet) {return petRepository.findAnimalsForCheck(vet.getUsername());}
 
