@@ -4,9 +4,11 @@ import gr.hua.dit.dis.ergasia.entities.*;
 import gr.hua.dit.dis.ergasia.repositories.*;
 import gr.hua.dit.dis.ergasia.service.PetService;
 import gr.hua.dit.dis.ergasia.service.UserDetailsServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -38,9 +40,11 @@ public class PetRestController {
     }
 
     @GetMapping("/our")
-    public List<Pet> getOurPets() {
-        User user = getAuthenticatedUser();
-        return (List<Pet>) petService.getOurPets(user);
+    public List<Pet> getOurPets(HttpServletRequest request) {
+        String s = request.getUserPrincipal().getName();
+       // User user = getAuthenticatedUser();
+        User user = userRepository.findByUsername(s).orElse(null);
+        return petService.getOurPets(user);
     }
 
     @PostMapping("/add")

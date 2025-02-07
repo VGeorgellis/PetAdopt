@@ -11,6 +11,8 @@ import gr.hua.dit.dis.ergasia.repositories.VetProfileRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PetService {
 
@@ -52,7 +54,7 @@ public class PetService {
     }
 
     @Transactional
-    public Object getOurPets(User shelter) {
+    public List<Pet> getOurPets(User shelter) {
         return petRepository.findOurPets(shelter.getUsername());
     }
 

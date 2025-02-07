@@ -61,6 +61,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/pets/checked/not-healthy/**").hasRole("ADMIN")
                         .requestMatchers("/api/pets/checked/healthy/**").hasRole("ADMIN")
                         .requestMatchers("/api/pets/add/**").hasAnyRole("ADMIN","SHELTER")
+                        .requestMatchers("/api/pets/**").hasAnyRole("USER")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
