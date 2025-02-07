@@ -1,6 +1,7 @@
 package gr.hua.dit.dis.ergasia.service;
 
 import gr.hua.dit.dis.ergasia.entities.ShelterProfile;
+import gr.hua.dit.dis.ergasia.entities.VetProfile;
 import gr.hua.dit.dis.ergasia.repositories.ShelterProfileRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class ShelterProfileService {
     }
 
     public ShelterProfile findByUsername(String username) {
-        return shelterProfileRepository.findByShelterUsername(username)
+        return shelterProfileRepository.findByUser_Username(username)
                 .orElseThrow(() -> new RuntimeException("Shelter not found"));
     }
 

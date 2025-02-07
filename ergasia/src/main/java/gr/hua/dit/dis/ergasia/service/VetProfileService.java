@@ -15,7 +15,7 @@ public class VetProfileService {
     }
 
     public VetProfile findByUsername(String username) {
-        return vetProfileRepository.findByVetUsername(username)
+        return vetProfileRepository.findByUser_Username(username)
                 .orElseThrow(() -> new RuntimeException("Vet not found"));
     }
 

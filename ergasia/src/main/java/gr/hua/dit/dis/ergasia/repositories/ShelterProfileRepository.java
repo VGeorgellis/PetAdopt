@@ -18,5 +18,5 @@ public interface ShelterProfileRepository extends JpaRepository<ShelterProfile,L
     // Query to find a shelter profile by shelter
     @Query("SELECT s FROM ShelterProfile s WHERE s.user = :shelter")
     ShelterProfile findByShelter(@Param("shelter") User shelter);
-    Optional<ShelterProfile> findByShelterUsername(String username);
+    Optional<ShelterProfile> findByUser_Username(String username);
 }

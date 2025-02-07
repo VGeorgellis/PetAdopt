@@ -14,5 +14,5 @@ public interface VetProfileRepository extends JpaRepository<VetProfile,Long> {
 
     @Query("SELECT v FROM VetProfile v WHERE v.user = :vet")
     VetProfile findByVet(@Param("vet") User vet);
-    Optional<VetProfile> findByVetUsername(String username);
+    Optional<VetProfile> findByUser_Username(String username);
 }
